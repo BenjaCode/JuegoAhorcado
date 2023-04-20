@@ -1,11 +1,12 @@
 import './App.css';
+import { ImagenesAhoracado } from './components/ImagenesAhorcado';
 import {letters} from './helpers/letters';
 
 function App() {
   return (
     <div className='App'>
       {/* Imagenes del ahorcado */}
-      <h3>Imagen del Ahorcado</h3>
+      <ImagenesAhoracado imageNumber={1}/>
 
       {/* Palabra Oculta */}
       <h3>__________</h3>
