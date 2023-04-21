@@ -2,10 +2,11 @@ import { useEffect, useState } from 'react';
 import './App.css';
 import { ImagenesAhoracado } from './components/ImagenesAhorcado';
 import {letters} from './helpers/letters';
+import {getRandomWord} from './helpers/getRandomWord'
 
 function App() {
 
-  const [word] = useState('COMPUTADORA');
+  const [word] = useState(getRandomWord());
   const [hiddenWord, setHiddenWord] = useState('_ '.repeat(word.length));
 
   const [attempts, setAttempts] = useState(0);
@@ -32,6 +33,10 @@ function App() {
 
   const checkLetter = (letter: string) => {
     if (lose){
+      return;
+    }
+
+    if (win){
       return;
     }
 
