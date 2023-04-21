@@ -6,7 +6,7 @@ import {getRandomWord} from './helpers/getRandomWord'
 
 function App() {
 
-  const [word] = useState(getRandomWord());
+  const [word, setWord] = useState(getRandomWord());
   const [hiddenWord, setHiddenWord] = useState('_ '.repeat(word.length));
 
   const [attempts, setAttempts] = useState(0);
@@ -56,6 +56,15 @@ function App() {
     setHiddenWord(hiddenWordArray.join(' '));
   }
 
+  const newGame = () => {
+    const newWord = getRandomWord();
+    setWord(newWord);
+    setHiddenWord('_ '.repeat(newWord.length));
+    setAttempts(0);
+    setLose(false);
+    setWin(false);
+  }
+
   return (
     <div className='App'>
       {/* Imagenes del ahorcado */}
@@ -83,6 +92,10 @@ function App() {
           <button key={index} onClick={() => checkLetter(letter)}>{letter}</button>
         ))
       }
+
+      {/* Juego nuevo */}
+      <br />
+      <button onClick={newGame}>Juego Nuevo</button>
     </div>
   )
 }
