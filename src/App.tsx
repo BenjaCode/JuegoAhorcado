@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './App.css';
 import { ImagenesAhoracado } from './components/ImagenesAhorcado';
 import {letters} from './helpers/letters';
@@ -10,7 +10,31 @@ function App() {
 
   const [attempts, setAttempts] = useState(0);
 
+  const [lose, setLose] = useState(false);
+
+  const [win, setWin] = useState(false);
+
+  // Determinar si la persona perdio
+  useEffect(() => {
+    if (attempts >= 9) {
+      setLose(true);
+    }
+  }, [attempts]);
+
+  // Determinar si la persona gano
+  useEffect(() => {
+    const currentHiddenWord = hiddenWord.split(' ').join('');
+    if (currentHiddenWord === word) {
+      setWin(true);
+    }
+  }, [hiddenWord]);
+
+
   const checkLetter = (letter: string) => {
+    if (lose){
+      return;
+    }
+
     if (!word.includes(letter)) {
       setAttempts(Math.min(attempts + 1, 9));
       return;
@@ -37,6 +61,16 @@ function App() {
 
       {/* Contador de Intentos */}
       <h3>Intentos: {attempts}</h3>
+
+      {/* Mensaje de Perdio */}
+      {
+        (lose) ? <h3>Perdiste la palabra era: {word}</h3> : ""
+      }
+
+      {/* Mensaje de Gano */}
+      {
+        (win) ? <h3>Ganaste</h3> : ""
+      }
 
       {/* Letras del abecedario */}
       {
